@@ -11,4 +11,4 @@ const options = {
 };
 
 const Auth = () => NextAuth(options);
-export default Auth;
+export default Auth();
