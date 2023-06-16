@@ -18,11 +18,11 @@ import {
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { ReactNode } from "react";
 
-const Links = ["Dashboard", "Projects", "Team"];
-
-const NavLink = ({ children }: { children: ReactNode }) => (
+const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
   <Link
     px={2}
     py={1}
@@ -31,13 +31,18 @@ const NavLink = ({ children }: { children: ReactNode }) => (
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
-    href={"#"}
+    as={NextLink}
+    href={href}
   >
     {children}
   </Link>
 );
 
 export const NavBar = () => {
+  const { data: session, status } = useSession();
+
+  const sessionIsLoading = status === "loading";
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -52,51 +57,53 @@ export const NavBar = () => {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={"center"}>
-            <Heading as="h1" size="lg" noOfLines={1}>
-              Leo Demo App
-            </Heading>
+            <NavLink href="/">
+              <Heading as="h1" size="lg" noOfLines={1}>
+                Leo Demo App
+              </Heading>
+            </NavLink>
             <HStack
               as={"nav"}
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
+              <NavLink href="/dashboard">Dashboard</NavLink>
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={"full"}
-                variant={"link"}
-                cursor={"pointer"}
-                minW={0}
-              >
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
-                <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
-              </MenuList>
-            </Menu>
+            {!sessionIsLoading && !!session && (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  rounded={"full"}
+                  variant={"link"}
+                  cursor={"pointer"}
+                  minW={0}
+                >
+                  <Avatar size={"sm"} src={session.user?.image as string} />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem as={NextLink} href="/dashboard">
+                    Dashboard
+                  </MenuItem>
+                  <MenuItem as={NextLink} href="/profile">
+                    Profile
+                  </MenuItem>
+                  <MenuDivider />
+                  <MenuItem onClick={() => signOut()}>Logout</MenuItem>
+                </MenuList>
+              </Menu>
+            )}
+            {!sessionIsLoading && !session && (
+              <Button onClick={() => signIn()}>Login</Button>
+            )}
           </Flex>
         </Flex>
 
         {isOpen ? (
           <Box pb={4} display={{ md: "none" }}>
             <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
+              <NavLink href="/dashboard">Dashboard</NavLink>
             </Stack>
           </Box>
         ) : null}

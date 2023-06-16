@@ -1,10 +1,14 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
+import { SessionProvider } from "next-auth/react";
 
 import { Layout } from "@/components/ui";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
     <>
       <Head>
@@ -17,9 +21,11 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ChakraProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <SessionProvider session={session}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </SessionProvider>
       </ChakraProvider>
     </>
   );
