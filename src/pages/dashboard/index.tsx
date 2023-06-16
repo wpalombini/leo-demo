@@ -1,3 +1,5 @@
+import { PageContainer } from "@/components/ui/page-container/page-container.component";
+
 export default function Dashboard() {
-  return <>Dashboard Page</>;
+  return <PageContainer>Dashboard Page</PageContainer>;
 }

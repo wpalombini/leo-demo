@@ -1,4 +1,3 @@
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
@@ -7,16 +6,13 @@ import {
   Flex,
   Heading,
   HStack,
-  IconButton,
   Link,
   Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
   MenuList,
-  Stack,
   useColorModeValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -40,22 +36,12 @@ const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
 
 export const NavBar = () => {
   const { data: session, status } = useSession();
-
   const sessionIsLoading = status === "loading";
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
       <Container p={0} maxW={{ base: "100%", xl: "75%" }}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <IconButton
-            size={"md"}
-            icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
-            aria-label={"Open Menu"}
-            display={{ md: "none" }}
-            onClick={isOpen ? onClose : onOpen}
-          />
           <HStack spacing={8} alignItems={"center"}>
             <NavLink href="/">
               <Heading as="h1" size="lg" noOfLines={1}>
@@ -100,14 +86,6 @@ export const NavBar = () => {
             )}
           </Flex>
         </Flex>
-
-        {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
-              <NavLink href="/dashboard">Dashboard</NavLink>
-            </Stack>
-          </Box>
-        ) : null}
       </Container>
     </Box>
   );
