@@ -68,6 +68,7 @@ export const NavBar = () => {
               display={{ base: "none", md: "flex" }}
             >
               <NavLink href="/dashboard">Dashboard</NavLink>
+              <NavLink href="/profile">Profile</NavLink>
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
