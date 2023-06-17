@@ -1,13 +1,5 @@
 import { useQuery } from "@apollo/client";
-import {
-  Box,
-  Button,
-  Center,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Spinner,
-} from "@chakra-ui/react";
+import { Box, Center, Spinner } from "@chakra-ui/react";
 import { useRef, useState } from "react";
 
 import { DashBoardDetails } from "@/components/dashboard-details/dashboard-details.component";

@@ -4,7 +4,6 @@ import {
   Button,
   Container,
   Flex,
-  Heading,
   HStack,
   Link,
   Menu,
@@ -14,6 +13,7 @@ import {
   MenuList,
   useColorModeValue,
 } from "@chakra-ui/react";
+import Image from "next/image";
 import NextLink from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { ReactNode } from "react";
@@ -44,9 +44,12 @@ export const NavBar = () => {
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <HStack spacing={8} alignItems={"center"}>
             <NavLink href="/">
-              <Heading as="h1" size="lg" noOfLines={1}>
-                Leo Demo App
-              </Heading>
+              <Image
+                alt="Leo-Logo"
+                width={40}
+                height={40}
+                src="/leonardo-logo.webp"
+              />
             </NavLink>
             <HStack
               as={"nav"}
