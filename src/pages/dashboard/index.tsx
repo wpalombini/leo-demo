@@ -1,14 +1,33 @@
 import { useQuery } from "@apollo/client";
-import { Center, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Spinner,
+} from "@chakra-ui/react";
+import { useRef, useState } from "react";
 
 import { DashBoardDetails } from "@/components/dashboard-details/dashboard-details.component";
+import { DashBoardSearchInput } from "@/components/dashboard-details/dashboard-search-input.component";
 import { Error } from "@/components/error/error.component";
 import { PageContainer } from "@/components/ui";
-import { countriesQuery } from "@/lib/queries/countries.query";
-import { CountriesType } from "@/lib/types/countries-query.type";
+import { countryQuery } from "@/lib/queries/country.query";
+import { CountryType } from "@/lib/types/country-query.type";
 
 export default function Dashboard() {
-  const { data, loading, error } = useQuery<CountriesType>(countriesQuery);
+  const [countryCode, setCountryCode] = useState("AU");
+
+  const { data, loading, error } = useQuery<CountryType>(countryQuery, {
+    variables: { code: countryCode },
+  });
+
+  const searchFieldRef = useRef<HTMLInputElement>(null);
+  const handleSearch = () => {
+    setCountryCode(searchFieldRef.current?.value as string);
+  };
 
   if (error) {
     return (
@@ -20,19 +39,21 @@ export default function Dashboard() {
     );
   }
 
-  if (loading) {
-    return (
-      <PageContainer>
-        <Center h="90vh">
-          <Spinner />
-        </Center>
-      </PageContainer>
-    );
-  }
-
   return (
     <PageContainer>
-      {!loading && <DashBoardDetails countries={data?.countries} />}
+      <Box py={4}>
+        <DashBoardSearchInput
+          defaultValue={countryCode}
+          handleSearch={handleSearch}
+          searchFieldRef={searchFieldRef}
+        />
+      </Box>
+      {loading && (
+        <Center h="80vh">
+          <Spinner />
+        </Center>
+      )}
+      {!loading && <DashBoardDetails country={data?.country} />}
     </PageContainer>
   );
 }
