@@ -25,7 +25,6 @@ export default function Home({ userSession }: { userSession: Session }) {
   const { name, title } = useUserStore();
   const hasUserDetails = name && title;
   const isSignedIn = !!userSession;
-  console.log(userSession);
 
   useEffect(() => {
     if (isSignedIn && hasUserDetails) {
@@ -35,10 +34,10 @@ export default function Home({ userSession }: { userSession: Session }) {
   }, [name, title]);
 
   return (
-    <PageContainer>
+    <PageContainer h="90vh">
       {isSignedIn && !hasUserDetails && <UserDetails />}
       {!isSignedIn && (
-        <Center h="90vh">
+        <Center>
           <Button onClick={() => signIn()}>Start by logging in</Button>
         </Center>
       )}
