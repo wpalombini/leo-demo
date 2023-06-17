@@ -1,9 +1,11 @@
+import { ApolloProvider } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { SessionProvider } from "next-auth/react";
 
 import { Layout } from "@/components/ui";
+import client from "@/lib/http/apollo-client";
 
 export default function App({
   Component,
@@ -22,9 +24,11 @@ export default function App({
       </Head>
       <ChakraProvider>
         <SessionProvider session={session}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <ApolloProvider client={client}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ApolloProvider>
         </SessionProvider>
       </ChakraProvider>
     </>

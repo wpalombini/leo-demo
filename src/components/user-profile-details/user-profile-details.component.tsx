@@ -19,7 +19,6 @@ export const UserProfileDetails = () => {
       <CardHeader>
         <Heading size="md">User Details</Heading>
       </CardHeader>
-
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
           <Box>

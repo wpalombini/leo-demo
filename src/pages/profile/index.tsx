@@ -1,4 +1,4 @@
-import { PageContainer } from "@/components/ui/page-container/page-container.component";
+import { PageContainer } from "@/components/ui";
 import { UserProfileDetails } from "@/components/user-profile-details/user-profile-details.component";
 
 export default function Profile() {
