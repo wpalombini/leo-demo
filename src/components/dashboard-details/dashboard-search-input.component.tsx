@@ -24,6 +24,7 @@ export const DashBoardSearchInput = ({
   return (
     <InputGroup>
       <Input
+        autoFocus={true}
         defaultValue={defaultValue}
         placeholder="Search by country code"
         onKeyDown={(event) => onEnter(event, handleSearch)}
