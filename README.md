@@ -1,38 +1,40 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Leo Demo App
+## What:
 
-## Getting Started
+This is a small demo web app using `NextJS`, `GraphQL`, `Zustand`, `Chakra UI`, `TypeScript` and `GitHub OAuth`.
 
-First, run the development server:
+### It features
+- Responsiveness (mobile, tablet and desktop).
+- Secured pages (NextAuth and NextJS Middleware).
+- GraphQL API call.
+- pnpm. [Why pnpm over npm?](https://refine.dev/blog/pnpm-vs-npm-and-yarn/#disk-space-efficiency)
+- Strong linting rules for high quality code standards. [See rules here](/.eslintrc.js)
 
+## How:
+In order to run this web app you need to have NodeJS and pnpm in your environment.
+### Prerequisites:
+- NodeJS 18.x
+- pnpm 8.x
+
+### Setup:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+npm i -g pnpm
+pnpm i --frozen-lockfile
+```
+
+### Run:
+```bash
 pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Using the app
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+The app has 3 pages: Home, Dashboard and Profile.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Once you hand on the home page, you have to login (the app will take you to GitHub for authentication).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+You will then be prompted with a modal asking for your name and job title, which can be seen on the Profile page.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+After logging in, you are redirected to the Dashboard page where you can see country details based on the country code typed in the search field.
