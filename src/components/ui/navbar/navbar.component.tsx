@@ -37,6 +37,7 @@ const NavLink = ({ children, href }: { children: ReactNode; href: string }) => (
 export const NavBar = () => {
   const { data: session, status } = useSession();
   const sessionIsLoading = status === "loading";
+  const isSignedIn = !!session;
 
   return (
     <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -51,17 +52,19 @@ export const NavBar = () => {
                 src="/leonardo-logo.webp"
               />
             </NavLink>
-            <HStack
-              as={"nav"}
-              spacing={4}
-              display={{ base: "none", md: "flex" }}
-            >
-              <NavLink href="/dashboard">Dashboard</NavLink>
-              <NavLink href="/profile">Profile</NavLink>
-            </HStack>
+            {isSignedIn && (
+              <HStack
+                as={"nav"}
+                spacing={4}
+                display={{ base: "none", md: "flex" }}
+              >
+                <NavLink href="/dashboard">Dashboard</NavLink>
+                <NavLink href="/profile">Profile</NavLink>
+              </HStack>
+            )}
           </HStack>
           <Flex alignItems={"center"}>
-            {!sessionIsLoading && !!session && (
+            {!sessionIsLoading && isSignedIn && (
               <Menu>
                 <MenuButton
                   as={Button}

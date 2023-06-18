@@ -29,8 +29,10 @@ export const DashBoardSearchInput = ({
         onKeyDown={(event) => onEnter(event, handleSearch)}
         ref={searchFieldRef}
       />
-      <InputRightElement width="10%">
-        <Button onClick={handleSearch}>Search</Button>
+      <InputRightElement width="unset">
+        <Button borderLeftRadius={0} onClick={handleSearch}>
+          Search
+        </Button>
       </InputRightElement>
     </InputGroup>
   );

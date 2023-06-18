@@ -10,7 +10,7 @@ import { countryQuery } from "@/lib/queries/country.query";
 import { CountryType } from "@/lib/types/country-query.type";
 
 export default function Dashboard() {
-  const [countryCode, setCountryCode] = useState("AU");
+  const [countryCode, setCountryCode] = useState("");
 
   const { data, loading, error } = useQuery<CountryType>(countryQuery, {
     variables: { code: countryCode },
@@ -18,7 +18,7 @@ export default function Dashboard() {
 
   const searchFieldRef = useRef<HTMLInputElement>(null);
   const handleSearch = () => {
-    setCountryCode(searchFieldRef.current?.value as string);
+    setCountryCode(searchFieldRef.current?.value?.toUpperCase() as string);
   };
 
   if (error) {
